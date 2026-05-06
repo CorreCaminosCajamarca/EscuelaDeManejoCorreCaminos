@@ -100,6 +100,9 @@
             font-size: 1.6rem;
             color: white;
             cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
         }
 
         /* ========== HERO ========== */
@@ -119,6 +122,7 @@
 
         .hero-content {
             max-width: 780px;
+            width: 100%;
         }
 
         .hero h1 {
@@ -210,6 +214,7 @@
             align-items: center;
             justify-content: center;
             min-height: 400px;
+            width: 100%;
         }
 
         .about-video video {
@@ -231,6 +236,7 @@
             cursor: pointer;
             transition: all 0.3s;
             gap: 16px;
+            z-index: 2;
         }
 
         .about-video-placeholder:hover {
@@ -693,72 +699,119 @@
         }
 
         /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .about-container {
+                gap: 30px;
+            }
+            
+            .about-info h2 {
+                font-size: 1.8rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            .header-container {
+                padding: 0 15px;
+            }
+
             .main-nav {
-                gap: 14px;
+                gap: 10px;
             }
 
             .nav-links {
                 display: none;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 60px;
                 left: 0;
                 width: 100%;
                 background: #1a3e6f;
                 flex-direction: column;
                 align-items: center;
-                padding: 22px;
-                gap: 16px;
+                padding: 20px;
+                gap: 15px;
                 border-top: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                z-index: 999;
             }
 
             .nav-links.active {
                 display: flex;
             }
 
+            .nav-links a {
+                font-size: 1rem;
+                padding: 8px 0;
+                width: 100%;
+                text-align: center;
+            }
+
             .menu-toggle {
                 display: block;
+                font-size: 1.8rem;
+                margin-left: 10px;
             }
 
             .btn-wsp {
-                padding: 8px 16px;
-                font-size: 0.82rem;
+                padding: 8px 15px;
+                font-size: 0.85rem;
             }
 
             .logo-img {
                 height: 45px;
             }
 
+            .hero {
+                min-height: 70vh;
+                padding: 90px 20px 50px;
+            }
+
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                line-height: 1.2;
             }
 
             .hero-subtitle {
-                font-size: 1.05rem;
+                font-size: 1rem;
+                margin-bottom: 25px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.9rem;
+            }
+
+            .about {
+                padding: 50px 20px;
             }
 
             .about-container {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 30px;
             }
 
             .about-video {
                 aspect-ratio: 16 / 9;
-                min-height: 280px;
+                min-height: 250px;
+                width: 100%;
             }
 
             .play-icon {
-                width: 65px;
-                height: 65px;
-                font-size: 2rem;
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
             }
 
             .video-label {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
 
             .about-info {
                 padding-right: 0;
+                text-align: left;
+            }
+
+            .about-info h2 {
+                font-size: 1.8rem;
                 text-align: center;
             }
 
@@ -767,13 +820,20 @@
                 transform: translateX(-50%);
             }
 
+            .about-highlight {
+                text-align: center;
+            }
+
             .about-list li {
                 text-align: left;
+                padding: 12px 15px;
+                font-size: 0.9rem;
             }
 
             .promo {
-                padding: 40px 20px;
+                padding: 40px 15px;
                 min-height: auto;
+                background-position: center;
             }
 
             .promo::before {
@@ -782,24 +842,68 @@
 
             .promo-card {
                 max-width: 100%;
-                padding: 30px 25px;
+                padding: 25px 20px;
             }
 
             .promo h2 {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+                line-height: 1.3;
             }
 
             .promo-subtitle {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
             }
 
             .promo-feature-item {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+
+            .btn-wsp-large {
+                font-size: 0.95rem;
+                padding: 12px 24px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .services {
+                padding: 50px 20px;
+            }
+
+            .services h2 {
+                font-size: 1.6rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+                margin: 0 auto;
+                gap: 20px;
+            }
+
+            .service-card {
+                margin: 0;
+            }
+
+            .service-img {
+                height: 200px;
+            }
+
+            .contact {
+                padding: 50px 20px;
             }
 
             .contact-wrapper {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+
+            .contact-card {
+                padding: 25px 20px;
+            }
+
+            .contact-card p {
+                font-size: 0.9rem;
             }
 
             .map-container {
@@ -810,18 +914,84 @@
                 min-height: 280px;
             }
 
-            .services-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-
             .wsp-float {
-                bottom: 18px;
-                right: 18px;
+                bottom: 20px;
+                right: 20px;
                 width: 50px;
                 height: 50px;
                 font-size: 24px;
+            }
+
+            .video-modal {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .about-info h2 {
+                font-size: 1.5rem;
+            }
+
+            .about-highlight {
+                font-size: 1rem;
+            }
+
+            .about-text {
+                font-size: 0.9rem;
+            }
+
+            .about-list li {
+                font-size: 0.85rem;
+                padding: 10px 12px;
+            }
+
+            .promo-card {
+                padding: 20px 15px;
+            }
+
+            .promo h2 {
+                font-size: 1.1rem;
+            }
+
+            .promo-features {
+                gap: 8px;
+            }
+
+            .promo-feature-item {
+                font-size: 0.8rem;
+            }
+
+            .service-info h3 {
+                font-size: 1rem;
+            }
+
+            .service-info p {
+                font-size: 0.85rem;
+            }
+
+            .contact-card p {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -835,14 +1005,14 @@
                 <img src="logo-correcaminos.jpg" alt="Corre Caminos" class="logo-img">
             </a>
             <div class="main-nav">
-                <ul class="nav-links">
+                <ul class="nav-links" id="navLinks">
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#sobre">Sobre Nosotros</a></li>
                     <li><a href="#servicios">Servicios</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
                 <a href="https://w.app/correcaminos" class="btn-wsp" target="_blank">📲 WhatsApp</a>
-                <div class="menu-toggle">☰</div>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
             </div>
         </div>
     </header>
@@ -863,7 +1033,7 @@
     <section id="sobre" class="about">
         <div class="about-container">
             <div class="about-video" id="aboutVideoContainer">
-                <video id="aboutVideo" loop muted playsinline style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                <video id="aboutVideo" loop muted playsinline preload="metadata" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                     <source src="sobre-nosotros.mp4" type="video/mp4">
                     Tu navegador no soporta el video.
                 </video>
@@ -922,21 +1092,21 @@
             <h2>Nuestros Servicios</h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <img src="servicio-practica.jpg" alt="Clases de conducción personalizadas" class="service-img">
+                    <img src="servicio-practica.jpg" alt="Clases de conducción personalizadas" class="service-img" loading="lazy">
                     <div class="service-info">
                         <h3>Clases de conducción personalizadas</h3>
                         <p>Práctica guiada según tu nivel: desde lo básico hasta perfeccionar maniobras y seguridad en ciudad.</p>
                     </div>
                 </div>
                 <div class="service-card">
-                    <img src="servicio-defensivo.jpg" alt="Curso de manejo defensivo" class="service-img">
+                    <img src="servicio-defensivo.jpg" alt="Curso de manejo defensivo" class="service-img" loading="lazy">
                     <div class="service-info">
                         <h3>Curso de manejo defensivo</h3>
                         <p>Aprende técnicas para anticiparte a riesgos, mejorar tu atención y conducir de forma más segura.</p>
                     </div>
                 </div>
                 <div class="service-card">
-                    <img src="servicio-examen.jpg" alt="Preparación para el examen de licencia" class="service-img">
+                    <img src="servicio-examen.jpg" alt="Preparación para el examen de licencia" class="service-img" loading="lazy">
                     <div class="service-info">
                         <h3>Preparación para el examen de licencia</h3>
                         <p>Entrenamiento práctico y teórico enfocado en lo que evalúan, para que apruebes con confianza.</p>
@@ -977,7 +1147,7 @@
     <div id="videoModal" class="video-modal">
         <div class="video-wrapper">
             <button class="close-video" onclick="cerrarVideo()">✕</button>
-            <video id="miVideo" controls playsinline>
+            <video id="miVideo" controls playsinline preload="metadata">
                 <source src="video-correcaminos.mp4" type="video/mp4">
                 Tu navegador no soporta el video.
             </video>
@@ -985,12 +1155,31 @@
     </div>
 
     <script>
-        // Menú móvil
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+        // Menú móvil mejorado
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            // Cambiar el icono del menú
+            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Cerrar menú al hacer clic en un enlace
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => navLinks.classList.remove('active'));
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            });
+        });
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.main-nav') && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
         });
 
         // Video en la sección Sobre Nosotros
@@ -999,32 +1188,53 @@
             const placeholder = document.getElementById('aboutVideoPlaceholder');
             placeholder.style.display = 'none';
             video.style.display = 'block';
+            video.style.width = '100%';
+            video.style.height = '100%';
             
-            // Pequeño retraso para asegurar que el video esté listo
-            setTimeout(() => {
-                video.muted = true;
-                video.play().then(() => {
-                    console.log('Video reproduciéndose');
-                }).catch(e => {
-                    console.log('Dale play manualmente');
+            video.muted = true;
+            video.playsInline = true;
+            video.setAttribute('playsinline', '');
+            
+            // Intentar reproducir el video
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('Video reproduciéndose correctamente');
+                }).catch(error => {
+                    console.log('Error al reproducir:', error);
+                    // Si falla, mostrar controles para que el usuario pueda reproducir manualmente
                     video.controls = true;
+                    video.muted = false;
                 });
-            }, 100);
+            }
         }
 
         // Video Modal (Hero)
         function abrirVideo() {
-            document.getElementById('videoModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+            const modal = document.getElementById('videoModal');
             const video = document.getElementById('miVideo');
-            video.play().catch(e => console.log('Dale play'));
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            video.playsInline = true;
+            video.setAttribute('playsinline', '');
+            
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Click en play para iniciar el video');
+                });
+            }
         }
         
         function cerrarVideo() {
-            document.getElementById('videoModal').classList.remove('active');
-            document.body.style.overflow = '';
+            const modal = document.getElementById('videoModal');
             const video = document.getElementById('miVideo');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
             video.pause();
+            video.currentTime = 0;
         }
         
         document.addEventListener('keydown', (e) => {
@@ -1033,6 +1243,11 @@
         
         document.getElementById('videoModal').addEventListener('click', function(e) {
             if (e.target === this) cerrarVideo();
+        });
+
+        // Prevenir que el menú se cierre al hacer clic en el toggle
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
         });
     </script>
 </body>
