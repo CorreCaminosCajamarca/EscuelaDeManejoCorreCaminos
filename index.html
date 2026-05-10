@@ -433,18 +433,16 @@
             align-items: center;
         }
 
-        /* ── VIDEO ARREGLADO ── */
-        .about-video {
+        /* ── IMAGEN SOBRE NOSOTROS ── */
+        .about-image {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 30px 70px rgba(26,62,111,.22);
-            background: var(--azul-dark);
             width: 100%;
-            aspect-ratio: 16 / 9;
         }
         /* Decoración dorada */
-        .about-video::before {
+        .about-image::before {
             content:'';
             position: absolute;
             inset: -3px;
@@ -453,83 +451,14 @@
             z-index: -1;
             opacity: .5;
         }
-
-        /* VIDEO real — siempre visible y reproducible */
-        #aboutVideo {
-            position: absolute;
-            inset: 0;
+        .about-img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
             display: block;
-            opacity: 0;
-            transition: opacity .5s ease;
-            z-index: 1;
+            border-radius: 20px;
+            transition: transform .5s ease;
         }
-        #aboutVideo.show {
-            opacity: 1;
-        }
-
-        /* Placeholder encima del video */
-        .about-video-placeholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1a3e6f 0%, #0f2a4a 100%);
-            color: #fff;
-            cursor: pointer;
-            transition: opacity .4s ease, transform .4s ease;
-            gap: 18px;
-            z-index: 2;
-        }
-        .about-video-placeholder.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .about-video-placeholder:hover { background: linear-gradient(135deg, #1f4a82 0%, #13355e 100%); }
-
-        .play-icon {
-            position: relative;
-            width: 90px; height: 90px;
-            background: rgba(255,255,255,.18);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.6rem;
-            backdrop-filter: blur(8px);
-            border: 2px solid rgba(255,255,255,.3);
-            transition: all .3s;
-        }
-        /* anillo pulsante */
-        .play-icon::before {
-            content:'';
-            position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            border: 3px solid rgba(255,215,0,.5);
-            animation: pulse-ring 2s ease-out infinite;
-        }
-        .about-video-placeholder:hover .play-icon {
-            background: var(--amarillo);
-            color: var(--azul);
-            border-color: var(--amarillo);
-            box-shadow: 0 10px 30px rgba(255,215,0,.5);
-            transform: scale(1.1);
-        }
-        .video-label {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: .5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,.35);
-        }
-        .video-sublabel {
-            font-size: .82rem;
-            opacity: .7;
+        .about-image:hover .about-img {
+            transform: scale(1.03);
         }
 
         /* INFO LATERAL */
@@ -1137,7 +1066,7 @@
             .hero-divider { display:none; }
             .about { padding:60px 20px; }
             .about-container { grid-template-columns:1fr; gap:34px; }
-            .about-video { order:-1; }
+            .about-image { order:-1; }
             .about-info { padding-right:0; }
             .about-info h2 { font-size:1.9rem; text-align:center; }
             .about-info h2::after { left:50%; transform:translateX(-50%); }
@@ -1198,7 +1127,6 @@
             <div class="hero-buttons">
                 <a href="#sobre" class="btn btn-yellow">Sobre Corre Caminos</a>
                 <button class="btn btn-white" onclick="abrirVideo()">▶ Ver Video</button>
-            
             </div>
         </div>
     </section>
@@ -1206,17 +1134,9 @@
     <!-- ═══════════ SOBRE NOSOTROS ═══════════ -->
     <section id="sobre" class="about">
         <div class="about-container">
-            <!-- VIDEO CORREGIDO -->
-            <div class="about-video reveal-left" id="aboutVideoContainer">
-                <video id="aboutVideo" loop playsinline preload="auto">
-                    <source src="sobre-nosotros.mp4" type="video/mp4">
-                    Tu navegador no soporta el video.
-                </video>
-                <div class="about-video-placeholder" id="aboutVideoPlaceholder" onclick="playAboutVideo()">
-                    <div class="play-icon">▶</div>
-                    <span class="video-label">Ver presentación</span>
-                    <span class="video-sublabel">Conoce nuestra escuela</span>
-                </div>
+            <!-- IMAGEN EN LUGAR DE VIDEO -->
+            <div class="about-image reveal-left">
+                <img src="sobre-nosotros-img.jpg" alt="Escuela de manejo Corre Caminos" class="about-img">
             </div>
 
             <!-- INFO -->
@@ -1478,51 +1398,6 @@
         window.addEventListener('scroll', () => {
             document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 50);
         });
-
-        /* ══════════════════════════════
-           VIDEO "SOBRE NOSOTROS" — ARREGLADO
-           El problema: el video tenía opacity:0 y visibility:hidden
-           por defecto, y el placeholder cubría todo con z-index:2.
-           Solución: cuando el usuario hace click → ocultamos el
-           placeholder con .hidden y mostramos el video con .show,
-           luego intentamos reproducir con manejo correcto de la
-           Promise que devuelve play().
-        ══════════════════════════════ */
-        function playAboutVideo() {
-            const video       = document.getElementById('aboutVideo');
-            const placeholder = document.getElementById('aboutVideoPlaceholder');
-
-            // 1. Ocultar placeholder
-            placeholder.classList.add('hidden');
-
-            // 2. Mostrar video
-            video.classList.add('show');
-
-            // 3. Configurar atributos
-            video.muted    = false;   // sin silencio para que suene
-            video.controls = true;    // controles visibles
-            video.setAttribute('playsinline', '');
-
-            // 4. Forzar recarga y reproducir
-            video.load();
-
-            const tryPlay = () => {
-                const promise = video.play();
-                if (promise !== undefined) {
-                    promise.catch(() => {
-                        // Si el navegador bloquea, activamos muted y reintentamos
-                        video.muted = true;
-                        video.play().catch(() => {});
-                    });
-                }
-            };
-
-            if (video.readyState >= 2) {
-                tryPlay();
-            } else {
-                video.addEventListener('canplay', tryPlay, { once: true });
-            }
-        }
 
         /* ── VIDEO MODAL (botón "Ver Video" del Hero) ── */
         function abrirVideo() {
